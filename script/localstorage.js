@@ -26,7 +26,7 @@ function saveFile(file, filename, content) {
 }
 
 function readFile(file) {
-    if (editors.editors.find(e => e.file === file )) {
+    if (editors.editors.find(e => e.file === file)) {
         return localStorage.getItem(file + ',' + editors.editors.find(e => e.file === file).filename)
     } else {
         return `Couldn't Find`
@@ -35,5 +35,5 @@ function readFile(file) {
 
 if (window.location.pathname == '/editor') {
     console.log('here')
-    document = readFile(editors.editors.find(e => e.file === window.location.hash.replace('#', '')))
+    mddocument = readFile(editors.editors.find(e => e.file === window.location.hash.replace('#', '')).file)
 }
