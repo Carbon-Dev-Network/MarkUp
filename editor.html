@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MarkUp Editor</title>
+    <link rel="stylesheet" type="text/css" href="style/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="style/semantic.min.js"></script>
+    <script src="script/showdown/showdown.js"></script>
+</head>
+
+<body>
+
+    <div class="ui menu">
+        <div class="header item">MarkUp</div>
+        <a class="active item" href="/">Home</a>
+        <a class="item" href="/editor">Editor</a>
+        <div class="ui dropdown item">
+            Templates
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <div class="item">Action</div>
+                <div class="item">Another Action</div>
+                <div class="item">Something else here</div>
+                <div class="divider"></div>
+                <div class="item">Separated Link</div>
+                <div class="divider"></div>
+                <div class="item">One more separated link</div>
+            </div>
+        </div>
+        <div class="right menu">
+            <a class="item" href="https://carbondev.cf">Carbon Dev</a>
+        </div>
+    </div>
+
+    <div style="padding: 2%;">
+
+        <div style="float: left; width: 48%;max-height: 74vh;height: 74vh;">
+            <div class="ui top attached tabular menu">
+                <button class="active item link" id="editorTab">Editor</button>
+                <button class="item link" id="elementsTab">Elements</button>
+            </div>
+            <div class="ui bottom attached active tab segment" style="height: 74vh;" id="editorBox">
+                <textarea style="height: 100%; width: 100%; max-width: 100%;resize: vertical;" class="ui input"
+                    id="editorDiv"></textarea>
+            </div>
+            <div class="ui bottom attached active tab segment" style="height: 74vh;display: none;" id="elementsBox">
+                <div class="ui list">
+                    <div class="item">
+                        <div class="ui message">
+                            <div class="header">
+                                Logo
+                            </div>
+                            <p>We just updated our privacy policy here to better service our customers. We recommend
+                                reviewing the changes.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ui message">
+                            <div class="header">
+                                Title and Description
+                            </div>
+                            <p>We just updated our privacy policy here to better service our customers. We recommend
+                                reviewing the changes.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ui message">
+                            <div class="header">
+                                Installation
+                            </div>
+                            <p>We just updated our privacy policy here to better service our customers. We recommend
+                                reviewing the changes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="float: right; width: 48%;">
+            <div class="ui top attached tabular menu">
+                <a class="active item">Preview</a>
+            </div>
+            <div class="ui bottom attached active tab segment" style="height: 74vh;">
+                <div id="markdownDiv">
+
+                </div>
+            </div>
+        </div>
+
+        <div style="clear: both;"></div>
+    </div>
+
+    <script src="script/localstorage.js"></script>
+
+    <script>
+        let elementsTab = document.getElementById('elementsTab')
+        let editorTab = document.getElementById('editorTab')
+        let elementsBox = document.getElementById('elementsBox')
+        let editorBox = document.getElementById('editorBox')
+        let editorDiv = document.getElementById('editorDiv')
+        let markdownDiv = document.getElementById('markdownDiv')
+
+        let editorTabIndex = 0
+
+        editorDiv.value = mddocument
+
+        function changeEditorTab(tab) {
+            if (tab == 0) {
+                editorTab.classList.add('active')
+                elementsTab.classList.remove('active')
+                editorBox.style.display = 'block'
+                elementsBox.style.display = 'none'
+            } else if (tab == 1) {
+                elementsTab.classList.add('active')
+                editorTab.classList.remove('active')
+                elementsBox.style.display = 'block'
+                editorBox.style.display = 'none'
+            }
+        }
+
+        editorTab.addEventListener("click", function () {
+            changeEditorTab(0)
+        });
+        elementsTab.addEventListener("click", function () {
+            changeEditorTab(1)
+        });
+
+        editorDiv.addEventListener("change", function () {
+            editor = editorDiv.value
+            var converter = new showdown.Converter();
+            var md = editorDiv.value
+            markdownDiv.innerHTML = converter.makeHtml(md);
+        });
+    </script>
+
+</body>
+
+</html>
