@@ -27,7 +27,7 @@ function saveFile(file, filename, content) {
 
 function readFile(file) {
     if (editors.editors.find(e => e.file === file )) {
-        return localStorage.getItem(file + ',' + filename)
+        return localStorage.getItem(file + ',' + editors.editors.find(e => e.file === file).filename)
     } else {
         return `Couldn't Find`
     }
