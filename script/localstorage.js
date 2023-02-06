@@ -35,5 +35,5 @@ function readFile(file, filename) {
 
 if (window.location.pathname == '/editor') {
     console.log('here')
-    document = readFile(editors.editors.find(e => e.file === window.location.hash))
+    document = readFile(editors.editors.find(e => e.file === window.location.hash.replace('#', '')))
 }
