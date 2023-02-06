@@ -44,8 +44,13 @@
                 <button class="item link" id="elementsTab">Elements</button>
             </div>
             <div class="ui bottom attached active tab segment" style="height: 74vh;" id="editorBox">
-                <textarea style="height: 100%; width: 100%; max-width: 100%;resize: vertical;" class="ui input"
-                    id="editorDiv"></textarea>
+                <div class="ui segment" style="height: 100%; width: 100%; padding: 0;">
+                    <textarea style="height: 100%; width: 100%; max-width: 100%;resize: none;" class="ui input"
+                        id="editorDiv"></textarea>
+                    <div class="ui active dimmer" id="editorLoader">
+                        <div class="ui loader"></div>
+                    </div>
+                </div>
             </div>
             <div class="ui bottom attached active tab segment" style="height: 74vh;display: none;" id="elementsBox">
                 <div class="ui list">
@@ -103,10 +108,16 @@
         let editorBox = document.getElementById('editorBox')
         let editorDiv = document.getElementById('editorDiv')
         let markdownDiv = document.getElementById('markdownDiv')
+        let editorLoader = document.getElementById('editorLoader')
 
         let editorTabIndex = 0
 
-        editorDiv.value = mddocument
+        if (editors.editors.find(e => e.file === window.location.hash.replace('#', '')) == `Couldn't Find`) {
+            editorLoader.style.display = 'none'
+        } else {
+            editorDiv.value = mddocument
+            editorLoader.style.display = 'none'
+        }
 
         function changeEditorTab(tab) {
             if (tab == 0) {

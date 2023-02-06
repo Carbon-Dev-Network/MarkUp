@@ -34,6 +34,5 @@ function readFile(file) {
 }
 
 if (window.location.pathname == '/editor') {
-    console.log('here')
     mddocument = readFile(editors.editors.find(e => e.file === window.location.hash.replace('#', '')).file)
 }
