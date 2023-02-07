@@ -13,12 +13,12 @@ if (editorsList != undefined) {
     }
 }
 
-function saveFile(file, filename, content) {
+function saveFile(file, content) {
     if (editors.editors.find(e => e.file === file + ',' + file)) {
-        localStorage.setItem(file + ',' + filename, content)
+        localStorage.setItem(file, content)
         return 'Success'
     } else {
-        editors.editors.push({ 'file': file, 'filename': filename })
+        editors.editors.push({ 'file': file })
         localStorage.setItem('editorsList', JSON.stringify(editors))
         localStorage.setItem(file + ',' + filename, content)
         return 'Success'
@@ -37,7 +37,7 @@ if (window.location.pathname == '/editor') {
     mddocument = readFile(editors.editors.find(e => e.file === window.location.hash.replace('#', '')).file)
     
     document.getElementById('saveBtn').addEventListener("click", function () {
-        saveFile(editors.editors.find(e => e.file === window.location.hash.replace('#', '')).file, editors.editors.find(e => e.file === window.location.hash.replace('#', '')).filename, document.getElementById('editorDiv').value)
+        saveFile(editors.editors.find(e => e.file === window.location.hash.replace('#', '')).file, document.getElementById('editorDiv').value)
     });
 } else if (window.location.pathname == '/') {
     editors.editors.forEach(function (item) {
